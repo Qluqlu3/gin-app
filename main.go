@@ -8,7 +8,7 @@ import (
 
 func main() {
 	app := gin.Default()
-	app.GET("/index", func(content *gin.Context) {
+	app.GET("/indexgit push -u origin ma", func(content *gin.Context) {
 		content.JSON(http.StatusOK, gin.H{
 			"message": "app",
 		})

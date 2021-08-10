@@ -4,19 +4,22 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
+
+type User struct {
+	gorm.Model
+	name string
+}
 
 func main() {
 	app := gin.Default()
 	app.GET("/index", func(content *gin.Context) {
 		content.JSON(http.StatusOK, gin.H{
-			"message": "app",
+			// "message": dbGetAll(),
 		})
 	})
-
 	app.Run(":5000")
 }
 
@@ -32,4 +35,13 @@ func gormConnect() *gorm.DB {
 		panic(err.Error())
 	}
 	return db
+}
+
+func dbGetAll() []User {
+	db := gormConnect()
+
+	defer db.Close()
+	var users []User
+	db.Find(&users)
+	return users
 }

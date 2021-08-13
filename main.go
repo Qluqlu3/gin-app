@@ -39,7 +39,6 @@ func gormConnect() *gorm.DB {
 
 func dbGetAll() []User {
 	db := gormConnect()
-
 	defer db.Close()
 	var users []User
 	db.Find(&users)
